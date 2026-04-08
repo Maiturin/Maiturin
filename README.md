@@ -4,14 +4,6 @@
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&pause=1000&center=true&vCenter=true&width=500&lines=Hi+%F0%9F%91%8B%2C+I'm+Maiturin;Full-Stack+Developer+%F0%9F%A4%93;Always+learning+new+things+%F0%9F%9A%80;Cola-driven+development+%F0%9F%A5%A4;NestJS+%2B+Vue+%3D+%E2%9D%A4%EF%B8%8F;Building+things+that+matter+%F0%9F%9B%A0;Open+source+contributor+%F0%9F%8C%8D)](https://git.io/typing-svg)
 </div>
 
-<br>
-
-<div align="center">
-<img align="center" src="./assets/footer.png" />
-</div>
-
-<br>
-
 ## 🙋 About Me
 
 - 🔭 &nbsp;Currently working on full-stack web projects with **NestJS** + **Vue**
@@ -47,6 +39,14 @@
 > 📦 My `node_modules` folder has more lines of code than most projects.\
 > 🎨 Yes, I use Photoshop and Illustrator. No, I'm not a designer. Yes, it shows.\
 > 🔀 Switching between frontend and backend so often I've forgotten which one I hate more.
+
+<br>
+
+<div align="center">
+<img align="center" src="./assets/footer.png" />
+</div>
+
+<br>
 
 **Languages**
 
