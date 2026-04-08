@@ -1,7 +1,7 @@
 <div align="center">
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Maiturin&fontSize=50&fontColor=fff&animation=fadeIn&fontAlignY=30&desc=Full-Stack%20Developer%20%7C%20Open%20Source%20Enthusiast&descAlignY=52&descSize=16"/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&pause=1000&center=true&vCenter=true&width=500&lines=Hi+%F0%9F%91%8B%2C+I'm+Maiturin;Full-Stack+Developer+%F0%9F%A4%93;Always+learning+new+things+%F0%9F%9A%80;Cola-driven+development+%F0%9F%A5%A4;NestJS+%2B+Vue+%3D+%E2%9D%A4%EF%B8%8F;Building+things+that+matter+%F0%9F%9B%A0;Open+source+contributor+%F0%9F%8C%8D)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&pause=1000&center=true&vCenter=true&width=500&lines=Hi+%F0%9F%91%8B%2C+I'm+Maiturin;Full-Stack+Developer+%F0%9F%A4%93;Always+learning+new+things+%F0%9F%9A%80;Cola-driven+development+%F0%9F%A5%A4;NestJS+%2B+Vue+%3D+%E2%9D%A4%EF%B8%8F;Building+things+that+matter+%F0%9F%9B%A0%EF%B8%8F;Open+source+contributor+%F0%9F%8C%8D)](https://git.io/typing-svg)
 </div>
 
 ## 🙋 About Me
