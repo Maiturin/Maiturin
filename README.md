@@ -33,7 +33,7 @@
 </div>
 
 
-## 🛠 Languages & Tools
+## 🧰 Tech Stack
 
 > 🧠 I don't know everything — I just know where to look it up.\
 > 📦 My `node_modules` folder has more lines of code than most projects.\
