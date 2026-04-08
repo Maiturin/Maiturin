@@ -127,7 +127,7 @@
 <br>
 
 <div align="center">
-<img width="fit" src="https://quotes-github-readme.vercel.app/api?type=horizontal" />
+<img src="https://quotes-github-readme.vercel.app/api?type=horizontal" style="max-width:100%"/>
 </div>
 
 <br>
