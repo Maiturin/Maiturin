@@ -43,7 +43,7 @@
 <br>
 
 <div align="center">
-<img align="center" src="./assets/footer.png" />
+<img src="./assets/footer.png" />
 </div>
 
 <br>
@@ -126,8 +126,8 @@
 
 <br>
 
-<div align="center">
-<img src="https://quotes-github-readme.vercel.app/api?type=horizontal" style="max-width:100%"/>
+<div align="center" style="max-width:100%;height:180px;">
+<img src="https://quotes-github-readme.vercel.app/api?type=horizontal" style="max-width:100%;height:100%"/>
 </div>
 
 <br>
