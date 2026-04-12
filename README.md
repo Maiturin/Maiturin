@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Maiturin&fontSize=50&fontColor=fff&animation=fadeIn&fontAlignY=30&desc=Full-Stack%20Developer%20%7C%20Open%20Source%20Enthusiast&descAlignY=52&descSize=16"/>
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&pause=1000&center=true&vCenter=true&width=500&lines=Hi+%F0%9F%91%8B%2C+I'm+Maiturin;Full-Stack+Developer+%F0%9F%A4%93;Always+learning+new+things+%F0%9F%9A%80;Cola-driven+development+%F0%9F%A5%A4;NestJS+%2B+Vue+%3D+%E2%9D%A4%EF%B8%8F;Building+things+that+matter+%F0%9F%9B%A0%EF%B8%8F;Open+source+contributor+%F0%9F%8C%8D)](https://git.io/typing-svg)
@@ -57,8 +57,6 @@
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
-![Haskell](https://img.shields.io/badge/Haskell-5D4F85?style=flat-square&logo=haskell&logoColor=white)
-![Bash](https://img.shields.io/badge/Bash-4EAA25?style=flat-square&logo=gnubash&logoColor=white)
 
 **Frontend**
 
@@ -76,7 +74,7 @@
 ![Bun](https://img.shields.io/badge/Bun-000000?style=flat-square&logo=bun&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
 ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)
-![ElysiaJS](https://img.shields.io/badge/ElysiaJS-000000?style=flat-square&logo=elysia&logoColor=white)
+![ElysiaJS](https://img.shields.io/badge/ElysiaJS-B87FDB?style=flat-square&logo=elysiajs&logoColor=white)
 ![Nginx](https://img.shields.io/badge/Nginx-009639?style=flat-square&logo=nginx&logoColor=white)
 ![OpenResty](https://img.shields.io/badge/OpenResty-009639?style=flat-square&logo=openresty&logoColor=white)
 ![Casdoor](https://img.shields.io/badge/Casdoor-2563EB?style=flat-square&logo=casdoor&logoColor=white)
@@ -84,10 +82,10 @@
 **Database**
 
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
-![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=flat-square&logo=mariadb&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-A0522D?style=flat-square&logo=mariadb&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
-![Valkey](https://img.shields.io/badge/Valkey-8B0000?style=flat-square&logo=valkey&logoColor=white)
+![Valkey](https://img.shields.io/badge/Valkey-1D5491?style=flat-square&logo=valkey=white)
 ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white)
 
 **DevOps & Infrastructure**
@@ -97,7 +95,7 @@
 ![Apache Kafka](https://img.shields.io/badge/Apache_Kafka-231F20?style=flat-square&logo=apachekafka&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=flat-square&logo=ubuntu&logoColor=white)
-![1Panel](https://img.shields.io/badge/1Panel-20A53A?style=flat-square&logo=1panel&logoColor=white)
+![1Panel](https://img.shields.io/badge/1Panel-0066CC?style=flat-square&logo=1panel&logoColor=white)
 
 **Observability**
 
@@ -108,12 +106,12 @@
 ![Loki](https://img.shields.io/badge/Loki-F5A800?style=flat-square&logo=grafana&logoColor=white)
 ![Tempo](https://img.shields.io/badge/Tempo-F5A800?style=flat-square&logo=grafana&logoColor=white)
 ![Pyroscope](https://img.shields.io/badge/Pyroscope-F5A800?style=flat-square&logo=grafana&logoColor=white)
-![Nightingale](https://img.shields.io/badge/Nightingale-1677FF?style=flat-square&logo=nightingale&logoColor=white)
+![Nightingale](https://img.shields.io/badge/Nightingale-7048C8?style=flat-square&logo=nightingale&logoColor=white)
 
 **Tools**
 
 ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
-![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat-square&logo=pnpm&logoColor=white)
+![Pnpm](https://img.shields.io/badge/Pnpm-F69220?style=flat-square&logo=pnpm&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![uv](https://img.shields.io/badge/uv-DE5FE9?style=flat-square&logo=uv&logoColor=white)
 ![Jest](https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=jest&logoColor=white)
@@ -129,8 +127,6 @@
 <div align="center">
 <img src="https://quotes-github-readme.vercel.app/api?type=horizontal"/>
 </div>
-
-<br>
 
 <div align="center">
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer" />
