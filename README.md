@@ -28,8 +28,8 @@
 
 
 <div align="center">
-  <img height="180em" src="https://github-readme-stats-navy-ten-36.vercel.app/api?username=Maiturin&show_icons=true&locale=en&theme=default&hide_border=true" alt="Maiturin" />
-  <img height="180em" src="https://github-readme-stats-navy-ten-36.vercel.app/api/top-langs?username=Maiturin&show_icons=true&locale=en&layout=compact&theme=default&hide_border=true" alt="Maiturin" />
+  <img height="180em" src="https://github-stats-extended.vercel.app/api?username=Maiturin&show_icons=true&locale=en&theme=default&hide_border=true" alt="Maiturin" />
+  <img height="180em" src="https://github-stats-extended.vercel.app/api/top-langs?username=Maiturin&show_icons=true&locale=en&layout=compact&theme=default&hide_border=true" alt="Maiturin" />
 </div>
 
 
@@ -44,89 +44,4 @@
 
 <div align="center">
 <img src="./assets/footer.png" />
-</div>
-
-<br>
-
-**Languages**
-
-<!-- ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) -->
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
-![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
-
-**Frontend**
-
-![Vue](https://img.shields.io/badge/Vue-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
-![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000000?style=flat-square&logo=shadcnui&logoColor=white)
-![Hexo](https://img.shields.io/badge/Hexo-0E83CD?style=flat-square&logo=hexo&logoColor=white)
-![VitePress](https://img.shields.io/badge/VitePress-5C73E7?style=flat-square&logo=vitepress&logoColor=white)
-
-**Backend**
-
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-![Bun](https://img.shields.io/badge/Bun-000000?style=flat-square&logo=bun&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
-![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)
-![ElysiaJS](https://img.shields.io/badge/ElysiaJS-B87FDB?style=flat-square&logo=elysiajs&logoColor=white)
-![Nginx](https://img.shields.io/badge/Nginx-009639?style=flat-square&logo=nginx&logoColor=white)
-![OpenResty](https://img.shields.io/badge/OpenResty-009639?style=flat-square&logo=openresty&logoColor=white)
-![Casdoor](https://img.shields.io/badge/Casdoor-7B3FF2?style=flat-square&logo=casdoor&logoColor=white)
-
-**Database**
-
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
-![MariaDB](https://img.shields.io/badge/MariaDB-A0522D?style=flat-square&logo=mariadb&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
-![Valkey](https://img.shields.io/badge/Valkey-1D5491?style=flat-square&logo=valkey=white)
-![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white)
-
-**DevOps & Infrastructure**
-
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
-![Apache Kafka](https://img.shields.io/badge/Apache_Kafka-231F20?style=flat-square&logo=apachekafka&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
-![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=flat-square&logo=ubuntu&logoColor=white)
-![1Panel](https://img.shields.io/badge/1Panel-0066CC?style=flat-square&logo=1panel&logoColor=white)
-
-**Observability**
-
-![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white)
-![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=grafana&logoColor=white)
-![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-000000?style=flat-square&logo=opentelemetry&logoColor=white)
-![VictoriaMetrics](https://img.shields.io/badge/VictoriaMetrics-621773?style=flat-square&logo=victoriametrics&logoColor=white)
-![Loki](https://img.shields.io/badge/Loki-F5A800?style=flat-square&logo=grafana&logoColor=white)
-![Tempo](https://img.shields.io/badge/Tempo-F5A800?style=flat-square&logo=grafana&logoColor=white)
-![Pyroscope](https://img.shields.io/badge/Pyroscope-F5A800?style=flat-square&logo=grafana&logoColor=white)
-![Nightingale](https://img.shields.io/badge/Nightingale-7048C8?style=flat-square&logo=nightingale&logoColor=white)
-
-**Tools**
-
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
-![Pnpm](https://img.shields.io/badge/Pnpm-F69220?style=flat-square&logo=pnpm&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
-![uv](https://img.shields.io/badge/uv-DE5FE9?style=flat-square&logo=uv&logoColor=white)
-![Jest](https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=jest&logoColor=white)
-![Scalar](https://img.shields.io/badge/Scalar-1A1A1A?style=flat-square&logo=scalar&logoColor=white)
-![Apifox](https://img.shields.io/badge/Apifox-EE5151?style=flat-square&logo=apifox&logoColor=white)
-![Anaconda](https://img.shields.io/badge/Anaconda-44A833?style=flat-square&logo=anaconda&logoColor=white)
-![Photoshop](https://img.shields.io/badge/Photoshop-31A8FF?style=flat-square&logo=adobephotoshop&logoColor=white)
-![Illustrator](https://img.shields.io/badge/Illustrator-FF9A00?style=flat-square&logo=adobeillustrator&logoColor=white)
-![Premiere Pro](https://img.shields.io/badge/Premiere_Pro-9999FF?style=flat-square&logo=adobepremierepro&logoColor=white)
-
-<br>
-
-<div align="center">
-<img src="https://quotes-github-readme.vercel.app/api?type=horizontal"/>
-</div>
-
-<div align="center">
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer" />
 </div>
