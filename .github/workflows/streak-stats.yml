@@ -1,0 +1,52 @@
+name: Update streak stats
+
+on:
+  schedule:
+    # Daily at 00:00 Asia/Taipei (16:00 UTC on the previous day).
+    - cron: "0 16 * * *"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/streak-stats.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: streak-stats-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Generate streak stats
+        uses: DenverCoder1/github-readme-streak-stats@d855de1a23fe45bdda5ffbc28a6d4b80b0f107e1 # v1 (1.8.0)
+        with:
+          # Add the PAT as an Actions repository secret named STREAK_STATS_TOKEN.
+          # Until then, use the built-in token. Checkout/push always use GITHUB_TOKEN.
+          token: ${{ secrets.STREAK_STATS_TOKEN || github.token }}
+          options: "user=${{ github.repository_owner }}&theme=default&hide_border=true&date_format=M%20j%5B%2C%20Y%5D&timezone=Asia%2FTaipei&disable_animations=true"
+          path: assets/streak.svg
+
+      - name: Commit and push updated card
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- assets/streak.svg
+          if git diff --cached --quiet; then
+            echo "Streak stats are unchanged."
+            exit 0
+          fi
+          git commit -m "chore(profile): update streak stats"
+          git push origin "HEAD:${TARGET_BRANCH}"
