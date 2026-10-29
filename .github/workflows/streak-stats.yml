@@ -1,139 +1,95 @@
-name: Update README stats
-
+name: Diagnose stats token
 on:
-  schedule:
-    # Daily at 00:00 Asia/Taipei (16:00 UTC on the previous day).
-    - cron: "0 16 * * *"
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/streak-stats.yml"
   workflow_dispatch:
-
 permissions:
   contents: read
-
-concurrency:
-  group: streak-stats-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
-  streak:
-    name: Generate streak
+  probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
+    timeout-minutes: 10
     steps:
-      - name: Check out repository
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-
-      - name: Generate streak stats
-        uses: DenverCoder1/github-readme-streak-stats@d855de1a23fe45bdda5ffbc28a6d4b80b0f107e1 # v1 (1.8.0)
-        with:
-          # All cards reuse STREAK_STATS_TOKEN; private stats/languages need
-          # a classic PAT with repo and read:user scopes. Without a PAT, use public stats.
-          # Checkout/push always use GITHUB_TOKEN.
-          token: ${{ secrets.STREAK_STATS_TOKEN || github.token }}
-          options: "user=${{ github.repository_owner }}&theme=default&hide_border=true&date_format=M%20j%5B%2C%20Y%5D&timezone=Asia%2FTaipei&disable_animations=true"
-          path: assets/streak.svg
-
-      - name: Upload streak card
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: readme-stats-streak
-          path: assets/streak.svg
-          if-no-files-found: error
-          retention-days: 1
-
-  stats:
-    name: Generate ${{ matrix.card }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - card: stats
-            options: "show_icons=true"
-          - card: top-langs
-            options: "show_icons=true&layout=compact"
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-
-      - name: Generate card
-        uses: stats-organization/github-readme-stats-action@2c498845f71017821efaad14293ebc736156ef21 # v2
-        with:
-          card: ${{ matrix.card }}
-          options: "username=${{ github.repository_owner }}&locale=en&theme=default&hide_border=true&disable_animations=true&${{ matrix.options }}"
-          path: assets/${{ matrix.card }}.svg
-          token: ${{ secrets.STREAK_STATS_TOKEN || github.token }}
-          core_version: "2.2.1"
-          fail_on_error: "true"
-
-      - name: Upload card
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: readme-stats-${{ matrix.card }}
-          path: assets/${{ matrix.card }}.svg
-          if-no-files-found: error
-          retention-days: 1
-
-  commit:
-    name: Commit README stats
-    needs: [streak, stats]
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      contents: write
-
-    steps:
-      - name: Check out latest branch
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-        with:
-          ref: ${{ github.ref_name }}
-
-      - name: Download generated cards
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
-        with:
-          pattern: readme-stats-*
-          merge-multiple: true
-          path: ${{ runner.temp }}/readme-stats
-
-      - name: Validate generated cards
+      - name: Probe the configured PAT directly
         env:
-          CARDS_DIR: ${{ runner.temp }}/readme-stats
+          GH_TOKEN: ${{ secrets.STREAK_STATS_TOKEN }}
         run: |
           python3 - <<'PY'
+          import collections, json, os, urllib.request, urllib.error
           from pathlib import Path
-          import os
-          import shutil
-          import xml.etree.ElementTree as ET
-
-          cards_dir = Path(os.environ["CARDS_DIR"])
-          names = ("streak.svg", "stats.svg", "top-langs.svg")
-          for name in names:
-              path = cards_dir / name
-              root = ET.parse(path).getroot()
-              if root.tag != "{http://www.w3.org/2000/svg}svg":
-                  raise ValueError(f"Invalid SVG: {path}")
-              print(f"Validated {path}")
-
-          for name in names:
-              shutil.copy2(cards_dir / name, Path("assets") / name)
+          token = os.environ.get('GH_TOKEN', '')
+          if not token:
+              raise SystemExit('STREAK_STATS_TOKEN is not configured')
+          def api(path, body=None):
+              request = urllib.request.Request('https://api.github.com' + path,
+                  data=json.dumps(body).encode() if body is not None else None,
+                  headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json',
+                           'Content-Type': 'application/json', 'User-Agent': 'Maiturin-stats-diagnostic'})
+              try:
+                  with urllib.request.urlopen(request, timeout=60) as response:
+                      return response.status, json.load(response), response.headers
+              except urllib.error.HTTPError as error:
+                  return error.code, None, error.headers
+          status, user, headers = api('/user')
+          print('Authenticated user request status:', status)
+          if status != 200:
+              raise SystemExit('The configured PAT cannot authenticate')
+          print('Identity matches owner:', user['login'].lower() == os.environ['GITHUB_REPOSITORY_OWNER'].lower())
+          print('Token kind:', 'fine-grained' if token.startswith('github_pat_') else 'classic or OAuth')
+          print('Classic repo scope present:', 'repo' in {s.strip() for s in headers.get('X-OAuth-Scopes','').split(',')})
+          query = '''query($login:String!) { user(login:$login) {
+            repositories(first:100,ownerAffiliations:[OWNER],isFork:false) {
+              totalCount pageInfo { hasNextPage } nodes { nameWithOwner isPrivate
+                languages(first:10,orderBy:{field:SIZE,direction:DESC}) { edges { size node { name } } }
+              }
+            }
+          } }'''
+          status, result, _ = api('/graphql', {'query':query,'variables':{'login':os.environ['GITHUB_REPOSITORY_OWNER']}})
+          print('Repository/language GraphQL status:', status)
+          if status != 200 or result.get('errors'):
+              raise SystemExit('Repository/language query failed')
+          repositories = result['data']['user']['repositories']
+          nodes = repositories['nodes']
+          private = [r for r in nodes if r['isPrivate']]
+          print('Owned non-fork repositories visible:', len(nodes))
+          print('Private repositories visible:', len(private))
+          print('More than 100 repositories:', repositories['pageInfo']['hasNextPage'])
+          if private:
+              target = private[0]['nameWithOwner']
+              for endpoint in ('', '/languages', '/contents'):
+                  status, _, _ = api('/repos/' + target + endpoint)
+                  print('Private repository probe', endpoint or '/metadata', 'status:', status)
+          totals = collections.Counter()
+          for r in nodes:
+              totals.update({e['node']['name']:e['size'] for e in r['languages']['edges']})
+          top = totals.most_common(6)
+          denominator = sum(size for _, size in top)
+          percentages = {name:round(100*size/denominator,2) for name,size in top}
+          print('Direct API language percentages:', json.dumps(percentages))
+          (Path(os.environ['RUNNER_TEMP'])/'language-probe.json').write_text(json.dumps({'private_count':len(private),'percentages':percentages}))
           PY
-
-      - name: Commit and push updated cards
-        env:
-          TARGET_BRANCH: ${{ github.ref_name }}
+      - name: Generate card through the current pinned Action
+        uses: stats-organization/github-readme-stats-action@2c498845f71017821efaad14293ebc736156ef21
+        with:
+          card: top-langs
+          options: "username=${{ github.repository_owner }}&locale=en&theme=default&hide_border=true&disable_animations=true&show_icons=true&layout=compact"
+          path: ${{ runner.temp }}/diagnostic-top-langs.svg
+          token: ${{ secrets.STREAK_STATS_TOKEN }}
+          core_version: "2.2.1"
+          fail_on_error: "true"
+      - name: Compare direct API data with the rendered card
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- assets/streak.svg assets/stats.svg assets/top-langs.svg
-          if git diff --cached --quiet; then
-            echo "README stats are unchanged."
-            exit 0
-          fi
-          git commit -m "chore(profile): update README stats"
-          git push origin "HEAD:${TARGET_BRANCH}"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          temp = Path(os.environ['RUNNER_TEMP'])
+          expected = json.loads((temp/'language-probe.json').read_text())
+          root = ET.parse(temp/'diagnostic-top-langs.svg').getroot()
+          actual = {}
+          for node in root.iter():
+              if node.get('data-testid') == 'lang-name':
+                  name, percent = ' '.join(node.itertext()).strip().rsplit(' ',1)
+                  actual[name] = float(percent.rstrip('%'))
+          print('Rendered Action language percentages:', json.dumps(actual))
+          print('Matches direct API results:', actual == expected['percentages'])
+          print('Configured PAT can enumerate private repositories:', expected['private_count'] > 0)
+          PY
