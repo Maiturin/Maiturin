@@ -1,6 +1,11 @@
 name: Diagnose stats token
 on:
   workflow_dispatch:
+    inputs:
+      private_repository:
+        description: Private repository used only for access probes
+        required: true
+        type: string
 permissions:
   contents: read
 jobs:
@@ -35,6 +40,14 @@ jobs:
           print('Identity matches owner:', user['login'].lower() == os.environ['GITHUB_REPOSITORY_OWNER'].lower())
           print('Token kind:', 'fine-grained' if token.startswith('github_pat_') else 'classic or OAuth')
           print('Classic repo scope present:', 'repo' in {s.strip() for s in headers.get('X-OAuth-Scopes','').split(',')})
+          print('Granted OAuth scopes:', headers.get('X-OAuth-Scopes', '(not provided)'))
+          event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
+          target = event['inputs']['private_repository']
+          if target.count('/') != 1 or not all(part and all(c.isalnum() or c in '-_.' for c in part) for part in target.split('/')):
+              raise SystemExit('Invalid probe repository identifier')
+          for endpoint in ('', '/languages', '/contents'):
+              status, _, _ = api('/repos/' + target + endpoint)
+              print('Known private repository probe', endpoint or '/metadata', 'status:', status)
           query = '''query($login:String!) { user(login:$login) {
             repositories(first:100,ownerAffiliations:[OWNER],isFork:false) {
               totalCount pageInfo { hasNextPage } nodes { nameWithOwner isPrivate
@@ -52,11 +65,6 @@ jobs:
           print('Owned non-fork repositories visible:', len(nodes))
           print('Private repositories visible:', len(private))
           print('More than 100 repositories:', repositories['pageInfo']['hasNextPage'])
-          if private:
-              target = private[0]['nameWithOwner']
-              for endpoint in ('', '/languages', '/contents'):
-                  status, _, _ = api('/repos/' + target + endpoint)
-                  print('Private repository probe', endpoint or '/metadata', 'status:', status)
           totals = collections.Counter()
           for r in nodes:
               totals.update({e['node']['name']:e['size'] for e in r['languages']['edges']})
