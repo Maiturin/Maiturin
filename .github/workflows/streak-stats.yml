@@ -18,11 +18,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update:
+  streak:
+    name: Generate streak
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    permissions:
-      contents: write
 
     steps:
       - name: Check out repository
@@ -38,38 +37,91 @@ jobs:
           options: "user=${{ github.repository_owner }}&theme=default&hide_border=true&date_format=M%20j%5B%2C%20Y%5D&timezone=Asia%2FTaipei&disable_animations=true"
           path: assets/streak.svg
 
-      - name: Generate GitHub stats
+      - name: Upload streak card
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: readme-stats-streak
+          path: assets/streak.svg
+          if-no-files-found: error
+          retention-days: 1
+
+  stats:
+    name: Generate ${{ matrix.card }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - card: stats
+            options: "show_icons=true"
+          - card: top-langs
+            options: "show_icons=true&layout=compact"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Generate card
         uses: stats-organization/github-readme-stats-action@2c498845f71017821efaad14293ebc736156ef21 # v2
         with:
-          card: stats
-          options: "username=${{ github.repository_owner }}&show_icons=true&locale=en&theme=default&hide_border=true&disable_animations=true"
-          path: assets/stats.svg
+          card: ${{ matrix.card }}
+          options: "username=${{ github.repository_owner }}&locale=en&theme=default&hide_border=true&disable_animations=true&${{ matrix.options }}"
+          path: assets/${{ matrix.card }}.svg
           token: ${{ secrets.STREAK_STATS_TOKEN || github.token }}
           core_version: "2.2.1"
           fail_on_error: "true"
 
-      - name: Generate top languages
-        uses: stats-organization/github-readme-stats-action@2c498845f71017821efaad14293ebc736156ef21 # v2
+      - name: Upload card
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          card: top-langs
-          options: "username=${{ github.repository_owner }}&show_icons=true&locale=en&layout=compact&theme=default&hide_border=true&disable_animations=true"
-          path: assets/top-langs.svg
-          token: ${{ secrets.STREAK_STATS_TOKEN || github.token }}
-          core_version: "2.2.1"
-          fail_on_error: "true"
+          name: readme-stats-${{ matrix.card }}
+          path: assets/${{ matrix.card }}.svg
+          if-no-files-found: error
+          retention-days: 1
+
+  commit:
+    name: Commit README stats
+    needs: [streak, stats]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out latest branch
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Download generated cards
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          pattern: readme-stats-*
+          merge-multiple: true
+          path: ${{ runner.temp }}/readme-stats
 
       - name: Validate generated cards
+        env:
+          CARDS_DIR: ${{ runner.temp }}/readme-stats
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import os
+          import shutil
           import xml.etree.ElementTree as ET
 
-          for name in ("streak.svg", "stats.svg", "top-langs.svg"):
-              path = Path("assets") / name
+          cards_dir = Path(os.environ["CARDS_DIR"])
+          names = ("streak.svg", "stats.svg", "top-langs.svg")
+          for name in names:
+              path = cards_dir / name
               root = ET.parse(path).getroot()
               if root.tag != "{http://www.w3.org/2000/svg}svg":
                   raise ValueError(f"Invalid SVG: {path}")
               print(f"Validated {path}")
+
+          for name in names:
+              shutil.copy2(cards_dir / name, Path("assets") / name)
           PY
 
       - name: Commit and push updated cards
