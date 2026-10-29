@@ -28,8 +28,8 @@
 
 
 <div align="center">
-  <img height="180em" src="https://github-stats-extended.vercel.app/api?username=Maiturin&show_icons=true&locale=en&theme=default&hide_border=true" alt="Maiturin" />
-  <img height="180em" src="https://github-stats-extended.vercel.app/api/top-langs?username=Maiturin&show_icons=true&locale=en&layout=compact&theme=default&hide_border=true" alt="Maiturin" />
+  <img height="180em" src="./assets/stats.svg" alt="Maiturin" />
+  <img height="180em" src="./assets/top-langs.svg" alt="Maiturin" />
 </div>
 
 

@@ -1,4 +1,4 @@
-name: Update streak stats
+name: Update README stats
 
 on:
   schedule:
@@ -31,22 +31,57 @@ jobs:
       - name: Generate streak stats
         uses: DenverCoder1/github-readme-streak-stats@d855de1a23fe45bdda5ffbc28a6d4b80b0f107e1 # v1 (1.8.0)
         with:
-          # Add the PAT as an Actions repository secret named STREAK_STATS_TOKEN.
-          # Until then, use the built-in token. Checkout/push always use GITHUB_TOKEN.
+          # All cards reuse STREAK_STATS_TOKEN; private stats/languages need
+          # a classic PAT with repo and read:user scopes. Without a PAT, use public stats.
+          # Checkout/push always use GITHUB_TOKEN.
           token: ${{ secrets.STREAK_STATS_TOKEN || github.token }}
           options: "user=${{ github.repository_owner }}&theme=default&hide_border=true&date_format=M%20j%5B%2C%20Y%5D&timezone=Asia%2FTaipei&disable_animations=true"
           path: assets/streak.svg
 
-      - name: Commit and push updated card
+      - name: Generate GitHub stats
+        uses: stats-organization/github-readme-stats-action@2c498845f71017821efaad14293ebc736156ef21 # v2
+        with:
+          card: stats
+          options: "username=${{ github.repository_owner }}&show_icons=true&locale=en&theme=default&hide_border=true&disable_animations=true"
+          path: assets/stats.svg
+          token: ${{ secrets.STREAK_STATS_TOKEN || github.token }}
+          core_version: "2.2.1"
+          fail_on_error: "true"
+
+      - name: Generate top languages
+        uses: stats-organization/github-readme-stats-action@2c498845f71017821efaad14293ebc736156ef21 # v2
+        with:
+          card: top-langs
+          options: "username=${{ github.repository_owner }}&show_icons=true&locale=en&layout=compact&theme=default&hide_border=true&disable_animations=true"
+          path: assets/top-langs.svg
+          token: ${{ secrets.STREAK_STATS_TOKEN || github.token }}
+          core_version: "2.2.1"
+          fail_on_error: "true"
+
+      - name: Validate generated cards
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+
+          for name in ("streak.svg", "stats.svg", "top-langs.svg"):
+              path = Path("assets") / name
+              root = ET.parse(path).getroot()
+              if root.tag != "{http://www.w3.org/2000/svg}svg":
+                  raise ValueError(f"Invalid SVG: {path}")
+              print(f"Validated {path}")
+          PY
+
+      - name: Commit and push updated cards
         env:
           TARGET_BRANCH: ${{ github.ref_name }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- assets/streak.svg
+          git add -- assets/streak.svg assets/stats.svg assets/top-langs.svg
           if git diff --cached --quiet; then
-            echo "Streak stats are unchanged."
+            echo "README stats are unchanged."
             exit 0
           fi
-          git commit -m "chore(profile): update streak stats"
+          git commit -m "chore(profile): update README stats"
           git push origin "HEAD:${TARGET_BRANCH}"
